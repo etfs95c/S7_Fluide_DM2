@@ -18,8 +18,10 @@ def beta_with_M_Theta(M_1, Theta):
     else:
         Beta = np.degrees(np.arctan(roots))
     
-    print("The value of \u03B2 for a strong shock is :\n\t\u03B2 = ", round(Beta[0],3) ,"\nThe value of \u03B2 for a weak shock is :\n\t\u03B2 = ", round(Beta[1],3))
-    print(roots)
+    #print("The value of \u03B2 for a strong shock is :\n\t\u03B2 = ", round(Beta[0],3) ,"\nThe value of \u03B2 for a weak shock is :\n\t\u03B2 = ", round(Beta[1],3))
+    #print(roots)
+    #Desactivated after Q3.
+
     return Beta
 
 def beta_after_deviation(M_1, P_1, Theta, w): #w=1 for weak shock, w=0 for strong shock
@@ -32,13 +34,26 @@ def beta_after_deviation(M_1, P_1, Theta, w): #w=1 for weak shock, w=0 for stron
     M_2 = round((Mn_2/(np.sin(np.radians(Beta-Theta)))),3)
 
     P_2 = round(P_1*(1 + (2*gamma)/(gamma+1)*(Mn_1**2 - 1)),3)
-    print("\nFor \u03B8 = ", Theta,"°, and M\u2081 =", M_1,"and P\u2081 =", M_1,"atm, we get\n \u03B2 = ", Beta,"°\tM\u2082 = ", M_2,"\tP\u2082 = ", P_2,"atm")
-    return M_2, P_2
 
+    #print("\nFor \u03B8 = ", Theta,"°, and M\u2081 =", M_1,"and P\u2081 =", M_1,"atm, we get\n \u03B2 = ", Beta,"°\tM\u2082 = ", M_2,"\tP\u2082 = ", P_2,"atm")
+    #Desactivated after Q3.
 
-print("Hello World")
+    return[M_2, P_2, Beta]
 
-beta_after_deviation(3, 1, 20, 1) #M_1 to M_2
-beta_after_deviation(3, 1, 15, 1) #M_1 to M_3
+Flow_1 = [3,1]
+print("M\u2081 = ", Flow_1[0],"\tP\u2081 = ", Flow_1[1]," atm\n")
 
-print("Hello World")
+temp = beta_after_deviation(Flow_1[0], Flow_1[1], 20, 1)
+Flow_2 = [temp[0],temp[1]]
+Beta_2 = temp[2]
+print("M\u2082 = ", Flow_2[0],"\tP\u2082 = ", Flow_2[1]," atm\t\u03B2\u2082 = ", Beta_2,"°\n")
+
+temp = beta_after_deviation(Flow_1[0], Flow_1[1], 15, 1)
+Flow_3 = [temp[0],temp[1]]
+Beta_3 = temp[2]
+print("M\u2083 = ", Flow_3[0],"\tP\u2083 = ", Flow_3[1]," atm\t\u03B2\u2083 = ", Beta_3,"°\n")
+
+del temp
+def diag_State_1():
+    n = 100
+    
