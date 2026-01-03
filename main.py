@@ -21,17 +21,24 @@ def beta_with_M_Theta(M_1, Theta):
     
     print("The value of \u03B2 for a strong shock is :\n\t\u03B2 = ", Beta[0] ,"\nThe value of \u03B2 for a weak shock is :\n\t\u03B2 = ", Beta[1])
     print(roots)
+    return Beta
 
-def beta_after_deviation(M_1, P_1, theta):
-    Beta_s = beta_with_M_Theta[0]
-    Beta_w = beta_with_M_Theta[1]
+def beta_after_deviation(M_1, P_1, Theta, w):
+    Beta = beta_with_M_Theta(M_1, Theta)[w]
 
     gamma = 1.4
 
-    Mn_1_s = M_1*np.sin(np.radians(Beta_s))
-    Mn_2_s = np.sqrt((1 + (gamma-1)/2) * Mn_1_s**2)/(gamma*Mn_1_s**2 - (gamma-1)/2)
+    Mn_1 = M_1*np.sin(np.radians(Beta))
+    Mn_2 = np.sqrt((1 + (gamma-1)/2) * Mn_1**2)/(gamma*Mn_1**2 - (gamma-1)/2)
+    M_2 = (Mn_2/(np.sin(np.radians(Beta-Theta))))
+
+    P_2 = P_1*(1 + (2*gamma)/(gamma+1)*(Mn_1**2 - 1))
+    print("\nFor \u03B8 = ", Theta,"°, and M\u2081 =", M_1,"and P\u2081 =", M_1,"atm, we get\n \u03B2 = ", Beta,"°\tM\u2082 = ", M_2,"\tP\u2082 = ", P_2,"atm")
+    return M_2, P_2
+
 
 print("Hello World")
 
-beta_with_M_Theta(100,20)
+beta_after_deviation(100, 1, 20, 1)
+
 print("Hello World")
