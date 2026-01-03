@@ -6,7 +6,6 @@ def beta_with_M_Theta(M_1, Theta):
     Theta_rad = np.radians(Theta)
     gamma = 1.4
     coef = [(gamma-1+(2/M_1**2))*np.tan(Theta_rad), (-2+(2/M_1**2)), (gamma+1+(2/M_1**2))*np.tan(Theta_rad)]
-    print("\nHello1 \n")
 
     roots = np.roots(coef)
 
@@ -39,6 +38,7 @@ def beta_after_deviation(M_1, P_1, Theta, w): #w=1 for weak shock, w=0 for stron
 
 print("Hello World")
 
-beta_after_deviation(3, 1, 20, 1)
-beta_after_deviation(3.166, 2.474, 15, 1)
+beta_after_deviation(3, 1, 20, 1) #M_1 to M_2
+beta_after_deviation(3, 1, 15, 1) #M_1 to M_3
+
 print("Hello World")
