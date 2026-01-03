@@ -40,5 +40,5 @@ def beta_after_deviation(M_1, P_1, Theta, w): #w=1 for weak shock, w=0 for stron
 print("Hello World")
 
 beta_after_deviation(3, 1, 20, 1)
-#beta_after_deviation()
+beta_after_deviation(3.166, 2.474, 15, 1)
 print("Hello World")
