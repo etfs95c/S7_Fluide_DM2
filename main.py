@@ -3,6 +3,7 @@ import math
 import sys
 import matplotlib.pyplot as mplt
 from matplotlib.ticker import MultipleLocator
+from scipy.interpolate import interp1d
 
 def beta_with_M_Theta(M_1, Theta):
     Theta_rad = np.radians(Theta)
@@ -153,3 +154,49 @@ mplt.legend(loc='best', fontsize=12)
 mplt.gcf().set_facecolor('lightgray')
 mplt.tight_layout()
 mplt.show()
+
+
+#Diagram 2+3
+theta_range_2 -=20
+theta_range_3 +=15
+
+mplt.figure(figsize=(10, 6))
+
+mplt.plot(theta_range_1, P_vect_weak_1, label='State 1', color='grey', linestyle='-.', linewidth=1)
+mplt.plot(theta_range_1, P_vect_strong_1, color='grey', linestyle='-.', linewidth=1)
+mplt.plot(theta_range_2, P_vect_weak_2, label='State 2', color='deepskyblue', linestyle='--', linewidth=2)
+mplt.plot(theta_range_2, P_vect_strong_2, color='deepskyblue', linestyle='--', linewidth=2)
+mplt.plot(theta_range_3, P_vect_weak_3, label='State 3', color='palevioletred', linestyle='--', linewidth=2)
+mplt.plot(theta_range_3, P_vect_strong_3, color='palevioletred', linestyle='--', linewidth=2)
+
+mplt.scatter([15], [2.82], marker='.', color='black', zorder=2)
+mplt.scatter([-20], [3.77], marker='.', color='black', zorder=2)
+mplt.scatter([-4.8], [8.35], marker='.', color='black', zorder=2)
+
+mplt.title('Pressure Deflection Diagram of the oblique shocks intersection', fontsize=18)
+mplt.xlabel('Deflection Angle θ (°)', fontsize=14)
+mplt.ylabel('Static Pressure P (atm)', fontsize=14)
+mplt.gca().xaxis.set_major_locator(MultipleLocator(5))  
+mplt.gca().yaxis.set_major_locator(MultipleLocator(1))   
+
+mplt.grid(True, linestyle='--', color='gray', alpha=0.3)
+mplt.legend(loc='best', fontsize=12)
+mplt.gcf().set_facecolor('lightgray')
+mplt.tight_layout()
+mplt.show()
+
+#Interpolation
+interp_2=interp1d(theta_range_2[len(theta_range_2)//2 :], P_vect_weak_2[len(theta_range_2)//2 :], kind='cubic', fill_value="extrapolate")
+interp_3=interp1d(theta_range_3[len(theta_range_2)//2 :], P_vect_weak_3[len(theta_range_2)//2 :], kind='cubic', fill_value="extrapolate")
+n=20
+delta_theta=[]
+P_4=np.linspace(3.77,12,n)
+for i in P_4:
+    x1 = interp_2(i)  
+    x2 = interp_3(i)  
+    delta_theta.append(x2 - x1)
+    
+theta_intercept=-4.8
+print(f"\u03B8\u2084 = {-(15-theta_intercept)}° \tP\u2084 = {interp_3(15+(15-theta_intercept)):0.2f} atm")
+print(f"\n\u03B8\u2084'= {-(-20-theta_intercept)}° \tP\u2084'= {interp_2(theta_intercept):0.2f} atm")
+print(f"\nSlip line angle \u03A6 = {abs(theta_intercept)}°")
