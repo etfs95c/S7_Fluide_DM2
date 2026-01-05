@@ -1,5 +1,4 @@
 import numpy as np
-import math
 import sys
 import matplotlib.pyplot as mplt
 from matplotlib.ticker import MultipleLocator
