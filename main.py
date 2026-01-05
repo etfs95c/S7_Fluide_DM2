@@ -5,6 +5,18 @@ import matplotlib.pyplot as mplt
 from matplotlib.ticker import MultipleLocator
 from scipy.interpolate import interp1d
 
+print("Hello world")
+print("                        . - ~ ~ ~ - .")
+print("      ..     _      .-~               ~-.")
+print("     //|     \\ `..~                      `.")
+print("    || |      }  }              /       \\  \\")
+print("(\\   \\ \\~^..'                 |         }  \\")
+print(" \\`.-~  o      /       }       |        /    \\")
+print(" (__          |       /        |       /      `.")
+print("  `- - ~ ~ -._|      /_ - ~ ~ ^|      /- _      `.")
+print("              |     /          |     /     ~-.     ~- _")
+print("              |_____|          |_____|         ~ - . _ _~_-_\n")
+
 def beta_with_M_Theta(M_1, Theta):
     Theta_rad = np.radians(Theta)
     gamma = 1.4
@@ -44,6 +56,8 @@ def beta_after_deviation(M_1, P_1, Theta, w): #w=1 for weak shock, w=0 for stron
     #Desactivated after Q3.
 
     return[M_2, P_2, Beta]
+
+gamma = 1.4
 
 Flow_1 = [3,1]
 print("M\u2081 = ", Flow_1[0],"\tP\u2081 = ", Flow_1[1]," atm\n")
@@ -197,6 +211,41 @@ for i in P_4:
     delta_theta.append(x2 - x1)
     
 theta_intercept=-4.8
-print(f"\u03B8\u2084 = {-(15-theta_intercept)}° \tP\u2084 = {interp_3(15+(15-theta_intercept)):0.2f} atm")
-print(f"\n\u03B8\u2084'= {-(-20-theta_intercept)}° \tP\u2084'= {interp_2(theta_intercept):0.2f} atm")
-print(f"\nSlip line angle \u03A6 = {abs(theta_intercept)}°")
+print(f"\u03B8\u2084 = {-(15-theta_intercept)} ° \tP\u2084 = {interp_3(15+(15-theta_intercept)):0.3f} atm")
+print(f"\n\u03B8\u2084'= {-(-20-theta_intercept)} ° \tP\u2084'= {interp_2(theta_intercept):0.3f} atm")
+print(f"\n\u03A6 = {abs(theta_intercept)} °\n")
+
+#temp, speed and beta
+T_1=300
+v_1=Flow_1[0] * np.sqrt(1.4*287*T_1)
+print(f"M\u2081 = {Flow_1[0]:.3f}","\t",f"v\u2081 = {v_1:.3f} m.s\u207B\u00B9","\t",f"P\u2081 = {Flow_1[1]:.3f} atm","\t",f"T\u2081 = {T_1:.3f} °K","\t",'\n')
+
+temp=beta_after_deviation(Flow_1[0], Flow_1[1], 20,1)
+Flow_=temp[0:2]
+beta_2=temp[2]
+T_2=T_1/((gamma+1)**2 * Flow_1[0] **2 *np.sin(np.radians(beta_2)) **2) *(2*gamma* Flow_1[0] **2 *np.sin(np.radians(beta_2)) **2 - (gamma - 1)) *(2 + (gamma - 1)*Flow_1[0] **2 *np.sin(np.radians(beta_2)) **2)
+v_2=Flow_2[0] * np.sqrt(1.4*287*T_2)
+print(f"M\u2082 = {Flow_2[0]:.3f}","\t",f"v\u2082 = {v_2:.3f} m.s\u207B\u00B9","\t",f"P\u2082 = {Flow_2[1]:.3f} atm","\t",f"T\u2082 = {T_2:.3f} °K","\t",f"\u03B2\u2082 = {beta_2:.3f} °",'\n')
+
+temp=beta_after_deviation(Flow_1[0], Flow_1[1], 15,1)
+Flow_3=temp[0:2]
+beta_3=temp[2]
+T_3=T_1/((gamma+1)**2 * Flow_1[0] **2 *np.sin(np.radians(beta_3)) **2) *(2*gamma* Flow_1[0] **2 *np.sin(np.radians(beta_3)) **2 - (gamma - 1)) *(2 + (gamma - 1)*Flow_1[0] **2 *np.sin(np.radians(beta_3)) **2)
+v_3=Flow_3[0] * np.sqrt(1.4*287*T_3)
+print(f"M\u2083 = {Flow_3[0]:.3f}","\t",f"v\u2083 = {v_3:.3f} m.s\u207B\u00B9","\t",f"P\u2083 = {Flow_3[1]:.3f} atm","\t",f"T\u2083 = {T_3:.3f} °K","\t",f"\u03B2\u2083 = {beta_3:.3f} °",'\n')
+
+temp=beta_after_deviation(Flow_3[0], Flow_3[1], 19.8,1)
+Flow_4=temp[0:2]
+beta_4=temp[2]
+T_4=T_3/((gamma+1)**2 * Flow_3[0] **2 *np.sin(np.radians(beta_4)) **2) *(2*gamma* Flow_3[0] **2 *np.sin(np.radians(beta_4)) **2 - (gamma - 1)) *(2 + (gamma - 1)*Flow_3[0] **2 *np.sin(np.radians(beta_4)) **2)
+v_4=Flow_4[0] * np.sqrt(1.4*287*T_4)
+print(f"M\u2084 = {Flow_4[0]:.3f}","\t",f"v\u2084 = {v_4:.3f} m.s\u207B\u00B9","\t",f"P\u2084 = {Flow_4[1]:.3f} atm","\t",f"T\u2084 = {T_4:.3f} °K","\t",f"\u03B2\u2084 = {beta_4:.3f} °",'\n')
+
+temp=beta_after_deviation(Flow_2[0], Flow_2[1], 15.2,1)
+Flow_4b=temp[0:2]
+beta_4p=temp[2]
+T_4p=T_2/((gamma+1)**2 * Flow_2[0] **2 *np.sin(np.radians(beta_4p)) **2) *(2*gamma* Flow_2[0] **2 *np.sin(np.radians(beta_4p)) **2 - (gamma - 1)) *(2 + (gamma - 1)*Flow_2[0] **2 *np.sin(np.radians(beta_4p)) **2)
+v_4p=Flow_4b[0] * np.sqrt(1.4*287*T_4p)
+print(f"M\u2084'= {Flow_4b[0]:.3f}","\t",f"v\u2084'= {v_4p:.3f} m.s\u207B\u00B9","\t",f"P\u2084'= {Flow_4b[1]:.3f} atm","\t",f"T\u2084' = {T_4p:.3f} °K","\t",f"\u03B2\u2084'= {beta_4p:.3f} °")
+
+print("\nGoodbye")
